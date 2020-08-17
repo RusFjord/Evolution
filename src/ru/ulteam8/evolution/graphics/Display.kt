@@ -16,13 +16,10 @@ class Display {
         private lateinit var bufferData : DataBuffer
         private lateinit var bufferGraphics : Graphics
         private lateinit var bufferStrategy: BufferStrategy
-        private var clearColor: Int = Color.GREEN.rgb
-        private var delta = 0.0
 
         fun create(width: Int, height: Int, title: String, numBuffers: Int) {
             if (created) return
             content.setSize(width, height)
-            content.background = Color.BLACK
 
             window = JFrame(title)
             window.isResizable = false
@@ -42,10 +39,10 @@ class Display {
             bufferStrategy = content.bufferStrategy
         }
 
-        fun clear() {
+        fun clear(color: Int) {
             var i = 0
             while (i < bufferData.size) {
-                bufferData.setElem(i, clearColor)
+                bufferData.setElem(i, color)
                 i++
             }
         }
@@ -60,5 +57,13 @@ class Display {
             window.dispose()
         }
 
+        fun setTitle(title : String) {
+            window.title = title
+        }
+
+        fun getGraphics() : Graphics? {
+            if (!created) return null
+            return bufferGraphics
+        }
     }
 }
