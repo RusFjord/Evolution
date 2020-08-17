@@ -9,8 +9,7 @@ import javax.swing.JFrame
 class Display {
     companion object {
         private var created = false
-        private var title = "Evolution"
-        private val window = JFrame(title)
+        private lateinit var window: JFrame
         private val content = Canvas()
 
         private lateinit var buffer: BufferedImage
@@ -20,11 +19,12 @@ class Display {
         private var clearColor: Int = Color.GREEN.rgb
         private var delta = 0.0
 
-        fun create(width: Int, height: Int, numBuffers: Int) {
+        fun create(width: Int, height: Int, title: String, numBuffers: Int) {
             if (created) return
             content.setSize(width, height)
             content.background = Color.BLACK
 
+            window = JFrame(title)
             window.isResizable = false
             window.contentPane.add(content)
             window.pack()
@@ -50,22 +50,14 @@ class Display {
             }
         }
 
-//        fun render() {
-//            bufferGraphics.color = Color(0xff0000ff.toInt())
-//            bufferGraphics.fillOval((350 + (Math.sin(delta) * 200)).toInt(), 250, 100, 100)
-//
-//            (bufferGraphics as Graphics2D).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
-//
-//            bufferGraphics.fillOval((500 + (Math.sin(delta) * 200)).toInt(), 250, 100, 100)
-//
-//            (bufferGraphics as Graphics2D).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF)
-//            //delta += 0.02
-//        }
-
         fun swapBuffers() {
             val g = bufferStrategy.drawGraphics
             g.drawImage(buffer, 0, 0, null)
             bufferStrategy.show()
+        }
+
+        fun destroy() {
+            window.dispose()
         }
 
     }
