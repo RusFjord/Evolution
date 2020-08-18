@@ -1,5 +1,9 @@
 package ru.ulteam8.evolution.core
 
-class Place {
-     
+class Place private constructor(){
+     companion object {
+         fun create() : Place {
+             return Place()
+         }
+     }
 }
