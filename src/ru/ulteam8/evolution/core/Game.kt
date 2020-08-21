@@ -14,18 +14,12 @@ private const val UPDATE_RATE = 60.0f
 private val UPDATE_INTERVAL = Time.SECOND / UPDATE_RATE
 private const val IDLE_TIME = 1L
 
-//temp
-private var x = 350
-private var y = 250
-private var delta = 0.0
-private var radius = 100
-//temp end
-
 class Game() : Runnable {
 
     private var running = false
     private lateinit var gameThread: Thread
     private val graphics: Graphics2D
+    private val world = World(WIDTH, HEIGHT)
 
     init {
         Display.create(WIDTH, HEIGHT, TITLE, NUM_BUFFERS)
@@ -50,12 +44,12 @@ class Game() : Runnable {
     }
 
     private fun update() {
-        delta += .02
+        world.update()
     }
 
     private fun render() {
         Display.clear(CLEAR_COLOR)
-        graphics.fillOval(x + (Math.sin(delta) * 200).toInt(), y, radius, radius)
+        world.render()
         Display.swapBuffers()
     }
 
