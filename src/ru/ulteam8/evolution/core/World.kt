@@ -12,7 +12,7 @@ private const val LOT_FOOD_COLOR = 0xFF186A3B.toInt()
 
 class World(val width: Int, val height: Int) : EvoObject {
     val size = width * height
-    private var places = Array<Place>(size, {it -> Place()})
+    private var places = Array<Place>(size) { Place() }
 
     override fun update() {
         places.forEach {
@@ -24,8 +24,8 @@ class World(val width: Int, val height: Int) : EvoObject {
         val graphics2D = Display.getGraphics() as Graphics2D
         var i = 0
         while (i < size) {
-            var y = i % width
-            var x = i - width * y
+            val y = (i / width).toInt()
+            val x = i - width * y
             if (places[i].entity != null) {
 
             } else {
@@ -36,8 +36,8 @@ class World(val width: Int, val height: Int) : EvoObject {
                     else -> LOT_FOOD_COLOR
                 }
 
-                graphics2D!!.setColor(Color(colorInt))
-                graphics2D!!.drawLine(x, y, x, y)
+                graphics2D.color = Color(colorInt)
+                graphics2D.drawLine(x, y, x, y)
             }
             i++
         }
