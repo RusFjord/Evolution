@@ -7,7 +7,7 @@ class Place : EvoObject {
         private set
 
     init {
-        foodLevel = 100
+        foodLevel = (Math.random() * 250).toInt()
     }
 
     override fun update() {
